@@ -1,0 +1,7 @@
+{
+  "name": "Budget App",
+  "private": true,
+  "scripts": {
+    "deploy": "git add . && git commit -m \"update\" || true && git push"
+  }
+}

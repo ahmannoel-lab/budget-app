@@ -1,0 +1,377 @@
+{
+  "design_system": {
+    "version": "1.0",
+    "preset_name": "Modern-Warm-Minimal (Dark-first)",
+    "visual_foundation": {
+      "palette": {
+        "mode": "dark",
+        "background": {
+          "primary": "#0C0C0D",
+          "elevated": "#141416",
+          "surface": "#1B1C1E",
+          "glass_tint": "rgba(20, 20, 22, 0.55)"
+        },
+        "content": {
+          "high": "#F2F2F2",
+          "medium": "#CFCFD2",
+          "low": "#9A9AA0",
+          "inverse_on_light": "#1A1A1A"
+        },
+        "accents": {
+          "warm_gold": "#D5B06F",
+          "desert_sand": "#C7A487",
+          "amber": "#FFBF66",
+          "sage": "#A0B5A5",
+          "teal": "#56B3B4",
+          "error": "#FF6B6B",
+          "success": "#4CC38A",
+          "warning": "#F5A524",
+          "info": "#5EB1FF"
+        },
+        "borders": {
+          "subtle": "rgba(255,255,255,0.06)",
+          "strong": "rgba(255,255,255,0.12)"
+        }
+      },
+      "typography": {
+        "family_primary": "SF Pro, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial",
+        "family_alt_display": "Manrope, Sora, Poppins, system-ui",
+        "scale": {
+          "display_l": { "size": 44, "line": 48, "weight": 300, "tracking": -1 },
+          "display_m": { "size": 36, "line": 40, "weight": 300, "tracking": -0.5 },
+          "h1": { "size": 28, "line": 34, "weight": 400, "tracking": -0.25 },
+          "h2": { "size": 22, "line": 28, "weight": 500, "tracking": 0 },
+          "title": { "size": 18, "line": 24, "weight": 600, "tracking": 0 },
+          "body_l": { "size": 16, "line": 22, "weight": 400, "tracking": 0 },
+          "body_m": { "size": 14, "line": 20, "weight": 400, "tracking": 0 },
+          "label": { "size": 12, "line": 16, "weight": 600, "tracking": 0.5 },
+          "micro": { "size": 11, "line": 14, "weight": 500, "tracking": 0.5 }
+        }
+      },
+      "radii": {
+        "xs": 8,
+        "sm": 12,
+        "md": 16,
+        "lg": 20,
+        "xl": 24,
+        "2xl": 28,
+        "pill": 999
+      },
+      "elevation": {
+        "shadow_s": "0 2px 8px rgba(0,0,0,0.25)",
+        "shadow_m": "0 8px 24px rgba(0,0,0,0.35)",
+        "shadow_l": "0 18px 48px rgba(0,0,0,0.45)",
+        "ambient_glow": "0 0 1px rgba(255,255,255,0.12)"
+      },
+      "glass_and_blur": {
+        "blur_strength": 18,
+        "backdrop_filter": "saturate(1.2) blur(18px)",
+        "stroke": "rgba(255,255,255,0.12)",
+        "inner_glow": "inset 0 1px 0 rgba(255,255,255,0.06)"
+      },
+      "gradients": {
+        "soft_warm": "linear-gradient(180deg, rgba(255,200,150,0.12) 0%, rgba(0,0,0,0) 60%)",
+        "charcoal_depth": "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 100%)",
+        "accent_glow": "radial-gradient(60% 60% at 70% 10%, rgba(213,176,111,0.25) 0%, rgba(0,0,0,0) 70%)"
+      },
+      "iconography": {
+        "stroke_width": 1.75,
+        "corner_radius": 3,
+        "style": "rounded-geo, minimal detail, high negative space",
+        "colors": {
+          "primary": "#F2F2F2",
+          "muted": "#9A9AA0",
+          "active": "#D5B06F"
+        }
+      },
+      "spacing": {
+        "grid_unit": 4,
+        "scale": { "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32, "xxxl": 40 }
+      },
+      "borders": {
+        "hairline": 1,
+        "thick": 2
+      },
+      "tokens": {
+        "link": { "color": "#FFBF66", "decoration": "none" },
+        "focus_ring": { "width": 2, "color": "rgba(213,176,111,0.75)" },
+        "tap_target_min": 44
+      }
+    },
+
+    "components": {
+      "app_shell": {
+        "status_bar_style": "light-content",
+        "safe_area_insets": true,
+        "bg": "{palette.background.primary}"
+      },
+      "top_nav": {
+        "height": 56,
+        "style": "translucent_glass",
+        "title_typography": "h2",
+        "left_slot": "icon_button",
+        "right_slot": "icon_button_group",
+        "divider": "rgba(255,255,255,0.06)"
+      },
+      "bottom_nav": {
+        "height": 82,
+        "style": "floating_glass",
+        "radius": "{radii.xl}",
+        "shadow": "{elevation.shadow_m}",
+        "items_max": 5,
+        "active_color": "{palette.accents.warm_gold}",
+        "inactive_color": "{palette.content.low}"
+      },
+      "card": {
+        "variants": ["elevated", "glass", "flat"],
+        "radius": "{radii.xl}",
+        "padding": "{spacing.scale.lg}",
+        "shadow": "{elevation.shadow_m}",
+        "border": "{palette.borders.subtle}",
+        "header": {
+          "title": "h2",
+          "subtitle": "label",
+          "meta_align": "end"
+        },
+        "media": {
+          "corner_radius": "{radii.lg}",
+          "overlay_gradient": "{gradients.charcoal_depth}"
+        },
+        "footer": {
+          "actions_layout": "icon-buttons + primary"
+        },
+        "states": {
+          "hover": { "elev": "{elevation.shadow_l}", "y": -2 },
+          "pressed": { "scale": 0.99, "opacity": 0.96 }
+        }
+      },
+      "profile_header": {
+        "anatomy": ["avatar", "name", "handle_or_meta", "badges", "cta_primary", "cta_secondary"],
+        "avatar_size": 112,
+        "name_typography": "display_m",
+        "meta_typography": "label",
+        "badges_style": "pill, subtle glass",
+        "layout": "stacked-center with background media and soft overlay",
+        "cta_primary_style": "primary/filled",
+        "cta_secondary_style": "ghost"
+      },
+      "list_item": {
+        "anatomy": ["leading_media_or_avatar", "title", "subtitle", "trailing_meta", "actions_inline"],
+        "height": 76,
+        "padding_x": 16,
+        "style": "elevated-surface with 12px radius",
+        "separator": "rgba(255,255,255,0.06)"
+      },
+      "story_chip": {
+        "size": 64,
+        "shape": "circle",
+        "ring": { "width": 2, "color": "{palette.accents.warm_gold}" },
+        "label_style": "micro",
+        "interaction": "tap to open overlay-carousel"
+      },
+      "button": {
+        "sizes": {
+          "sm": { "height": 36, "padding_x": 12, "radius": "{radii.pill}" },
+          "md": { "height": 44, "padding_x": 16, "radius": "{radii.pill}" },
+          "lg": { "height": 52, "padding_x": 20, "radius": "{radii.pill}" }
+        },
+        "variants": {
+          "primary": {
+            "bg": "{palette.accents.warm_gold}",
+            "fg": "{palette.inverse_on_light}",
+            "shadow": "{elevation.shadow_s}"
+          },
+          "secondary": {
+            "bg": "{palette.surface}",
+            "fg": "{palette.content.high}",
+            "stroke": "{palette.borders.strong}"
+          },
+          "ghost": {
+            "bg": "transparent",
+            "fg": "{palette.content.high}",
+            "stroke": "rgba(255,255,255,0.10)"
+          },
+          "icon": {
+            "shape": "circle",
+            "size": 44,
+            "bg": "rgba(255,255,255,0.06)"
+          }
+        },
+        "states": {
+          "hover_opacity": 0.92,
+          "pressed_opacity": 0.88,
+          "disabled_opacity": 0.45,
+          "focus_ring": "{tokens.focus_ring}"
+        }
+      },
+      "input_field": {
+        "height": 48,
+        "bg": "rgba(255,255,255,0.06)",
+        "stroke": "{palette.borders.subtle}",
+        "radius": 14,
+        "placeholder_color": "#8D8D93",
+        "text_color": "{palette.content.high}",
+        "leading_icon": true
+      },
+      "tag_pill": {
+        "radius": "{radii.pill}",
+        "padding_x": 12,
+        "padding_y": 8,
+        "typography": "label",
+        "variants": {
+          "neutral": { "bg": "rgba(255,255,255,0.06)", "fg": "{palette.content.medium}" },
+          "accent": { "bg": "rgba(213,176,111,0.20)", "fg": "{palette.accents.warm_gold}" },
+          "outline": { "bg": "transparent", "fg": "{palette.content.medium}", "stroke": "{palette.borders.strong}" }
+        }
+      },
+      "modal_sheet": {
+        "type": "bottom-sheet",
+        "grabber": true,
+        "max_height_pct": 92,
+        "radius": "{radii.2xl}",
+        "bg": "{palette.background.elevated}",
+        "backdrop": "rgba(0,0,0,0.5)",
+        "shadow": "{elevation.shadow_l}"
+      },
+      "carousel": {
+        "type": "snap-center",
+        "card_spacing": 16,
+        "peek": 24,
+        "scroll_indicator": "dots subtle"
+      },
+      "comment_cell": {
+        "anatomy": ["avatar", "author", "timestamp", "text", "actions"],
+        "text_typography": "body_m",
+        "meta_typography": "micro",
+        "indent_replies_px": 24
+      },
+      "media_tile": {
+        "ratio": "1:1 or 4:5",
+        "radius": "{radii.lg}",
+        "overlay_controls": "bottom glass bar",
+        "play_icon": { "size": 44, "style": "glass circle" }
+      },
+      "stat_chip": {
+        "anatomy": ["icon", "value", "label"],
+        "value_typography": "title",
+        "label_typography": "micro",
+        "bg": "rgba(255,255,255,0.06)",
+        "radius": 14
+      },
+      "fab": {
+        "size": 60,
+        "radius": 30,
+        "position": { "x": "right-24", "y": "bottom-28" },
+        "bg": "{palette.accents.warm_gold}",
+        "fg": "{palette.inverse_on_light}",
+        "shadow": "{elevation.shadow_l}"
+      }
+    },
+
+    "layout_and_motion": {
+      "grid": { "columns": 12, "gutter": 12, "margin": 16 },
+      "safe_areas": true,
+      "max_content_width": 480,
+      "section_spacing": { "tight": 12, "regular": 16, "loose": 24, "xl": 32 },
+      "animation": {
+        "durations_ms": {
+          "xfast": 90,
+          "fast": 160,
+          "standard": 220,
+          "slow": 320,
+          "overlay_in": 280,
+          "overlay_out": 220
+        },
+        "easings": {
+          "enter": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+          "exit": "cubic-bezier(0.4, 0.0, 1, 1)",
+          "spring_soft": { "stiffness": 180, "damping": 22 }
+        },
+        "patterns": {
+          "card_lift": { "y": -6, "shadow": "shadow_l", "duration": 160 },
+          "glass_fade": { "opacity_from": 0, "opacity_to": 1, "duration": 220 },
+          "story_swipe": { "translate_x": "viewport", "scale": 0.98, "opacity": [1, 0.8] }
+        }
+      }
+    },
+
+    "interaction_behavior": {
+      "gestures": {
+        "story": "tap to advance, swipe to navigate, long-press for options",
+        "cards": "vertical scroll, horizontal snap for carousels",
+        "sheet": "swipe down to dismiss with resistance"
+      },
+      "feedback": {
+        "haptics": { "tap": "light", "success": "medium", "error": "rigid" },
+        "states": {
+          "loading": { "style": "skeleton shimmer", "duration_hint_ms": 600 },
+          "empty": { "icon": "minimal", "copy_style": "body_m", "cta_variant": "ghost" }
+        }
+      },
+      "accessibility": {
+        "contrast_min": 4.5,
+        "hit_area_min": 44,
+        "reduce_motion_support": true,
+        "dynamic_type_support": true
+      }
+    },
+
+    "tone_and_mood": {
+      "keywords": [
+        "refined minimalism",
+        "editorial warmth",
+        "soft depth instead of hard borders",
+        "glass surfaces with subtle noise",
+        "large gentle typography",
+        "rounded geometry",
+        "muted color with intentional warm accents"
+      ],
+      "photography_treatment": {
+        "lighting": "warm, cinematic",
+        "contrast": "moderate",
+        "grain": "subtle",
+        "vignette": "very soft",
+        "overlay": "{gradients.charcoal_depth}"
+      },
+      "dos": [
+        "Prefer depth via shadow, blur, and gradients over thick borders.",
+        "Keep accent usage minimal; a single warm hue should carry emphasis.",
+        "Use generous padding and negative space to create hierarchy.",
+        "Anchor interactions to natural gestures (swipe, drag) with soft motion."
+      ],
+      "donts": [
+        "Avoid harsh pure whites on dark backgrounds for large text.",
+        "Avoid neon accents or high-saturation primaries competing with warm gold.",
+        "Avoid sharp 2px corners—use rounded radii for harmony.",
+        "Avoid dense line separators; use hairline or shadow separation."
+      ]
+    },
+
+    "implementation_hints": {
+      "css_variables": {
+        "--bg": "#0C0C0D",
+        "--bg-surface": "#1B1C1E",
+        "--text": "#F2F2F2",
+        "--text-muted": "#9A9AA0",
+        "--accent": "#D5B06F",
+        "--radius-xl": "24px",
+        "--shadow-m": "0 8px 24px rgba(0,0,0,0.35)",
+        "--glass": "backdrop-filter: saturate(1.2) blur(18px); background: rgba(20,20,22,0.55); border: 1px solid rgba(255,255,255,0.12)"
+      },
+      "tailwind_suggestions": [
+        "rounded-2xl", "backdrop-blur-xl", "bg-black/70", "border-white/10",
+        "shadow-[0_8px_24px_rgba(0,0,0,0.35)]", "text-zinc-100", "text-zinc-400",
+        "from-amber-200/10 via-transparent to-transparent"
+      ],
+      "component_slots_to_generate": [
+        "ProfileHeader(title, subtitle, badges, actions)",
+        "GlassCard(media, title, meta, actions)",
+        "StoryStrip(items[], onOpen)",
+        "StatChip(icon, value, label)",
+        "BottomNav(items[icon,label], activeIndex)",
+        "ModalSheet(header, content, footer)",
+        "CommentCell(avatar, author, timestamp, text, actions)"
+      ]
+    }
+  }
+}
