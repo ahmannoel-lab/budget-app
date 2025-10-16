@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Budget App Home Prototype</title>
     <style>
         :root {
@@ -52,38 +53,201 @@
         body {
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 32px 0;
-            background: radial-gradient(60% 60% at 70% 0%, rgba(213, 176, 111, 0.12) 0%, rgba(0, 0, 0, 0) 60%), var(--bg-primary);
-            color: var(--text-high);
+            background: #3D2F28;
+            color: #FFFFFF;
         }
 
         .phone {
-            width: 430px;
-            min-height: 932px;
-            background:
-                radial-gradient(60% 60% at 70% 8%, rgba(213, 176, 111, 0.08) 0%, rgba(0, 0, 0, 0) 70%),
-                linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 100%),
-                var(--glass-tint);
-            border-radius: 32px;
-            padding: 24px;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background image + glass effect */
+        .phone::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #3D2F28;
+            z-index: 0;
+        }
+
+        .phone::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, .18);
+            backdrop-filter: blur(24px) saturate(1.15);
+            -webkit-backdrop-filter: blur(24px) saturate(1.15);
+            border: 1px solid rgba(255, 255, 255, .22);
+            z-index: 1;
+        }
+
+        .phone-content {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 44px) + 48px);
+            bottom: 358px;
+            left: 0;
+            right: 0;
+            max-width: 430px;
+            margin: 0 auto;
+            z-index: 2;
+            padding: 0 24px 16px 24px;
             display: flex;
             flex-direction: column;
-            gap: 22px;
-            border: 1px solid var(--border-strong);
-            backdrop-filter: saturate(1.2) blur(18px);
-            box-shadow: var(--shadow-l);
-            background-clip: padding-box;
+            justify-content: space-evenly;
+            gap: 12px;
+            color: #1A1A1A;
+            overflow: hidden;
+        }
+
+        /* Desktop only - show phone frame */
+        @media (min-width: 768px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 32px 0;
+            }
+
+            .phone {
+                width: 430px;
+                min-height: 932px;
+                max-height: 932px;
+                border-radius: 32px;
+                box-shadow: 0 80px 120px rgba(0,0,0,.25);
+            }
+
+            .phone-content {
+                min-height: 932px;
+                max-height: 932px;
+                overflow-y: auto;
+            }
         }
 
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-low);
+            color: rgba(0, 0, 0, 0.5);
             font-size: 12px;
             letter-spacing: 0.08em;
+        }
+
+        /* Mobile status bar simulation */
+        .mobile-status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 51;
+            max-width: 430px;
+            margin: 0 auto;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+        }
+
+        /* Top header with logo and settings */
+        .top-header {
+            position: absolute;
+            top: calc(env(safe-area-inset-top, 44px) + 6px);
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding: 6px 16px 4px 16px;
+            height: 42px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .header-logo {
+            height: 28px;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .header-logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-icon {
+            font-size: 22px;
+            pointer-events: auto;
+            cursor: pointer;
+            color: rgba(245, 241, 235, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+        }
+
+        .profile-avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(213, 176, 111, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #F5F1EB;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .profile-meta {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(245, 241, 235, 0.65);
+            margin: 2px 0 0 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .overview-header {
@@ -99,7 +263,7 @@
             border-radius: 999px;
             overflow: hidden;
             flex: 0 0 auto;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
         }
 
         .header-avatar img {
@@ -121,13 +285,13 @@
             width: 74px;
             flex: 0 0 auto;
             text-align: center;
-            color: var(--text-high);
+            color: #F5F1EB;
         }
 
         .story-thumb {
             position: relative;
-            width: 62px;
-            height: 62px;
+            width: 54px;
+            height: 54px;
             border-radius: 999px;
             overflow: hidden;
             display: grid;
@@ -153,11 +317,11 @@
             width: 100%;
             height: 100%;
             border-radius: inherit;
-            background: #161617;
+            background: rgba(255, 255, 255, 0.5);
             overflow: hidden;
             display: grid;
             place-items: center;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 24px rgba(0, 0, 0, 0.35);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .story-inner img {
@@ -169,10 +333,11 @@
 
         .story-item label {
             display: block;
-            margin-top: 6px;
-            font-size: 11px;
+            margin-top: 4px;
+            font-size: 10px;
+            font-weight: 500;
             line-height: 1.1;
-            color: var(--text-medium);
+            color: rgba(245, 241, 235, 0.7);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -184,11 +349,11 @@
             border-radius: 999px;
             display: grid;
             place-items: center;
-            background: rgba(255, 255, 255, 0.14);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
             font-size: 18px;
             font-weight: 700;
-            color: #fff;
+            color: #F5F1EB;
         }
 
         .header-cluster {
@@ -203,7 +368,7 @@
             border-radius: 999px;
             overflow: hidden;
             display: block;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
         }
 
         .header-mini img {
@@ -217,8 +382,8 @@
             min-width: 24px;
             height: 24px;
             border-radius: 999px;
-            background: #1F1F22;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.6);
+            color: #1A1A1A;
             font-size: 11px;
             font-weight: 700;
             display: grid;
@@ -227,149 +392,34 @@
 
         .balance {
             display: flex;
-            align-items: flex-end;
-            gap: 8px;
-            padding: 0 2px;
-        }
-
-        .balance-amount {
-            font-size: 44px;
-            font-weight: 300;
-            line-height: 48px;
-            letter-spacing: -0.5px;
-        }
-
-        .balance-label {
-            color: var(--text-low);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }
-
-        .budget-feed {
-            width: 100%;
-            max-width: 360px;
-            margin: 0 auto;
-            padding: 0 12px;
-            max-height: 188px; /* tighter three-row viewport */
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-        }
-
-
-        .budget-row {
-            display: flex;
+            justify-content: space-evenly;
             align-items: center;
-            gap: 12px;
             padding: 8px 0;
         }
 
-        .budget-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.06);
-            margin: 3px 0;
-        }
-
-        .budget-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 999px;
-            overflow: hidden;
-            flex: 0 0 auto;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
-        }
-
-        .budget-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .budget-content {
-            min-width: 0;
-            flex: 1 1 auto;
-        }
-
-        .budget-meta {
+        .balance-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            min-height: 16px;
+            gap: 4px;
+            text-align: center;
+            flex: 1;
         }
 
-        .budget-pill {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 999px;
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: #F5F1EB;
+        }
+
+        .balance-label {
+            color: rgba(245, 241, 235, 0.65);
             font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
             font-weight: 700;
-            letter-spacing: 0.02em;
-            background: #FF4B2B;
-            color: #fff;
-            line-height: 1;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(0,0,0,0.25);
-        }
-
-        .budget-ticks {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .budget-tick {
-            width: 18px;
-            height: 6px;
-            border-radius: 999px;
-            background: #FFD15A;
-        }
-
-        .budget-viewers {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #B5B6BA;
-            font-size: 11px;
-        }
-
-        .budget-viewers-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: #B5B6BA;
-            display: inline-block;
-        }
-
-        .budget-title {
-            margin-top: 2px;
-            font-size: 15px;
-            line-height: 20px;
-            color: #F5F5F6;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .budget-when {
-            font-size: 12px;
-            color: #B5B6BA;
-        }
-
-        .budget-badge {
-            min-width: 24px;
-            height: 24px;
-            padding: 0 6px;
-            display: grid;
-            place-items: center;
-            border-radius: 999px;
-            background: #1E1F22;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            flex: 0 0 auto;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
         }
 
         .tabs {
@@ -377,12 +427,14 @@
             justify-content: center;
             gap: 32px;
             font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: var(--text-medium);
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-subtle);
-            background: var(--bg-primary);
+            color: rgba(245, 241, 235, 0.6);
+            padding-bottom: 8px;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(245, 241, 235, 0.15);
+            background: transparent;
             position: relative;
             z-index: 2; /* ensure tabs paint above card shadows */
         }
@@ -393,38 +445,76 @@
             position: absolute;
             left: 0; right: 0; bottom: -1px;
             height: 12px;
-            background: linear-gradient(to bottom, var(--bg-primary) 0%, rgba(12,12,13,0) 100%);
+            background: transparent;
             pointer-events: none;
         }
 
         .tab {
             padding-bottom: 6px;
             border-bottom: 2px solid transparent;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: inherit;
+            font-size: inherit;
+            text-transform: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            color: #F5F1EB;
         }
 
         .tab.active {
             border-color: var(--accent-warm-gold);
-            color: var(--text-high);
+            color: #F5F1EB;
         }
 
         .card-stack {
-            position: relative;
-            height: 280px;
-            margin-top: 20px; /* spacing below tabs */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 358px;
+            max-width: 430px;
+            margin: 0 auto;
+            z-index: 30;
+            padding: 0 24px;
         }
 
         .card {
             position: absolute;
-            inset: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 340px;
             border-radius: var(--radius-xl);
-            border: 1px solid var(--border-subtle);
-            background: linear-gradient(180deg, rgba(255, 200, 150, 0.12) 0%, rgba(0, 0, 0, 0.35) 100%), var(--bg-surface);
+            border: 1px solid rgba(245, 241, 235, 0.2);
+            background: linear-gradient(180deg, rgb(207, 202, 194) 0%, rgb(199, 194, 186) 100%);
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            transform-origin: center;
-            box-shadow: var(--shadow-m), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transform-origin: center bottom;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(245, 241, 235, 0.3);
+        }
+
+        /* Hide discover cards by default */
+        .card[data-category="discover"] {
+            display: none;
+        }
+
+        /* When discover tab is active, hide wishlist and show discover */
+        .tabs.show-discover ~ .card-stack .card[data-category="wishlist"] {
+            display: none;
+        }
+
+        .tabs.show-discover ~ .card-stack .card[data-category="discover"] {
+            display: flex;
         }
 
         .card::before {
@@ -433,33 +523,40 @@
             left: 0; right: 0; top: 0;
             height: 24px;
             border-radius: inherit;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.10), rgba(255,255,255,0.04) 30%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to bottom, rgba(245,241,235,0.3), rgba(245,241,235,0.1) 30%, rgba(245,241,235,0) 100%);
             pointer-events: none;
         }
 
-        .card:nth-child(1) { transform: translateY(-72px) scale(0.916); opacity: 0.4; }
-        .card:nth-child(2) { transform: translateY(-48px) scale(0.944); opacity: 0.55; }
-        .card:nth-child(3) { transform: translateY(-24px) scale(0.972); opacity: 0.75; }
-        .card:nth-child(4) { transform: translateY(0) scale(1); opacity: 1; }
+        /* Wishlist stacking (more specific selectors) */
+        .card[data-category="wishlist"]:nth-child(1) { transform: translateY(-90px) scale(0.90); opacity: 0.4; }
+        .card[data-category="wishlist"]:nth-child(2) { transform: translateY(-60px) scale(0.93); opacity: 0.55; }
+        .card[data-category="wishlist"]:nth-child(3) { transform: translateY(-30px) scale(0.96); opacity: 0.75; }
+        .card[data-category="wishlist"]:nth-child(4) { transform: translateY(0) scale(1); opacity: 1; }
+
+        /* Discover stacking (more specific selectors) */
+        .card[data-category="discover"]:nth-child(5) { transform: translateY(-90px) scale(0.90); opacity: 0.4; }
+        .card[data-category="discover"]:nth-child(6) { transform: translateY(-60px) scale(0.93); opacity: 0.55; }
+        .card[data-category="discover"]:nth-child(7) { transform: translateY(-30px) scale(0.96); opacity: 0.75; }
+        .card[data-category="discover"]:nth-child(8) { transform: translateY(0) scale(1); opacity: 1; }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--text-medium);
+            color: rgba(245, 241, 235, 0.7);
             font-size: 14px;
             letter-spacing: 0.04em;
         }
 
         .card-header strong {
-            color: var(--text-high);
+            color: #F5F1EB;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0;
         }
 
         .card-header span {
-            color: var(--text-medium);
+            color: rgba(245, 241, 235, 0.65);
             text-transform: uppercase;
             letter-spacing: 0.12em;
             font-size: 11px;
@@ -479,17 +576,25 @@
 
         .card-image {
             flex: 1;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 100%), rgba(255, 255, 255, 0.06);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.5) 100%), rgba(255, 255, 255, 0.2);
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
-            color: var(--text-medium);
-            border: 1px solid var(--border-subtle);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            color: rgba(245, 241, 235, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
             position: relative;
             overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
         }
 
         .card-image::after {
@@ -497,28 +602,33 @@
             position: absolute;
             left: 0; right: 0; bottom: 0;
             height: 46%;
-            background: linear-gradient(to top, rgba(0,0,0,0.38), rgba(0,0,0,0.18), rgba(0,0,0,0));
+            background: linear-gradient(to top, rgba(0,0,0,0.08), rgba(0,0,0,0.04), rgba(0,0,0,0));
             pointer-events: none;
         }
 
         .bottom-nav {
-            margin-top: auto;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 16px;
+            padding-bottom: env(safe-area-inset-bottom, 12px);
         }
 
         .bottom-bar {
             width: 180px;
             padding: 8px 14px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid var(--border-strong);
-            box-shadow: var(--shadow-m);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             backdrop-filter: saturate(1.35) blur(20px);
             position: relative;
         }
@@ -542,7 +652,7 @@
             height: 36px;
             border-radius: 18px;
             background: transparent;
-            color: var(--text-medium);
+            color: rgba(245, 241, 235, 0.6);
             font-size: 16px;
             border: none;
             cursor: pointer;
@@ -551,8 +661,8 @@
 
         .bottom-item.active {
             background: linear-gradient(135deg, var(--accent-warm-gold), var(--accent-desert-sand));
-            color: var(--bg-primary);
-            box-shadow: var(--shadow-s);
+            color: #3D2F28;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .bottom-item:focus-visible {
@@ -564,23 +674,52 @@
             width: 134px;
             height: 5px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.24);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <main class="phone">
-        <section class="status-bar" aria-label="Status bar">
-            <span class="time">9:41</span>
-            <div class="system-icons">
-                <span>Cell</span>
-                <span>Wi-Fi</span>
-                <span>80%</span>
+
+        <!-- Top header with logo and settings -->
+        <header class="top-header">
+            <a href="#" class="header-logo">
+                <img src="SampleLogo.png" alt="Budget App Logo">
+            </a>
+            <a href="#" class="header-icon">⚙️</a>
+        </header>
+
+        <div class="phone-content">
+
+        <!-- Profile Section -->
+        <section class="profile-section" aria-label="User profile">
+            <div class="profile-avatar">
+                <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=200" alt="Profile photo">
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">Marvin McKinney</h2>
+                <p class="profile-meta">Member since May 2021</p>
             </div>
         </section>
 
-        <section class="overview-header" aria-label="Profile and quick stories">
+        <section class="balance" aria-label="Account balances">
+            <div class="balance-item">
+                <div class="balance-amount">$482</div>
+                <div class="balance-label">Liquid</div>
+            </div>
+            <div class="balance-item">
+                <div class="balance-amount">$1,250</div>
+                <div class="balance-label">Credit</div>
+            </div>
+            <div class="balance-item">
+                <div class="balance-amount">$5,340</div>
+                <div class="balance-label">Savings</div>
+            </div>
+        </section>
+
+        <!-- Stories Section -->
+        <section class="overview-header" aria-label="Quick stories">
             <div class="story-strip" aria-label="Stories">
                 <div class="story-item">
                     <div class="story-thumb">
@@ -618,158 +757,116 @@
                     <label>Add transactions</label>
                 </div>
             </div>
-
-            
-        </section>
-
-        <section class="balance" aria-label="Account balance">
-            <div class="balance-amount">$482</div>
-            <div class="balance-label">Current Balance</div>
-        </section>
-
-        <section class="budget-feed" aria-label="Daily budget feed">
-            <article class="budget-row">
-                <div class="budget-avatar">
-                    <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=200" alt="">
-                </div>
-                <div class="budget-content">
-                    <div class="budget-meta">
-                        <span class="budget-pill">LIVE</span>
-                        <div class="budget-ticks">
-                            <span class="budget-tick"></span>
-                            <span class="budget-tick"></span>
-                        </div>
-                        <div class="budget-viewers">
-                            <span class="budget-viewers-dot"></span>
-                            <span>2</span>
-                        </div>
-                    </div>
-                    <div class="budget-title">Experiences</div>
-                </div>
-                <div class="budget-badge">7</div>
-            </article>
-
-            <div class="budget-divider"></div>
-
-            <article class="budget-row">
-                <div class="budget-avatar">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200" alt="">
-                </div>
-                <div class="budget-content">
-                    <div class="budget-meta">
-                        <span class="budget-pill">LIVE</span>
-                        <div class="budget-ticks">
-                            <span class="budget-tick"></span>
-                            <span class="budget-tick"></span>
-                        </div>
-                        <div class="budget-viewers">
-                            <span class="budget-viewers-dot"></span>
-                            <span>12</span>
-                        </div>
-                    </div>
-                    <div class="budget-title">Shopping</div>
-                </div>
-            </article>
-
-            <div class="budget-divider"></div>
-
-            <article class="budget-row">
-                <div class="budget-avatar">
-                    <img src="https://images.unsplash.com/photo-1553514029-1318c9127859?q=80&w=200" alt="">
-                </div>
-                <div class="budget-content">
-                    <div class="budget-meta">
-                        <span class="budget-pill">LIVE</span>
-                        <div class="budget-ticks">
-                            <span class="budget-tick"></span>
-                            <span class="budget-tick"></span>
-                        </div>
-                        <div class="budget-viewers">
-                            <span class="budget-viewers-dot"></span>
-                            <span>8</span>
-                        </div>
-                    </div>
-                    <div class="budget-title">Necessities</div>
-                </div>
-                <div class="budget-badge">3</div>
-            </article>
-
-            <div class="budget-divider"></div>
-
-            <article class="budget-row">
-                <div class="budget-avatar">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=200" alt="">
-                </div>
-                <div class="budget-content">
-                    <div class="budget-meta">
-                        <span class="budget-pill">LIVE</span>
-                        <div class="budget-ticks">
-                            <span class="budget-tick"></span>
-                            <span class="budget-tick"></span>
-                        </div>
-                        <div class="budget-viewers">
-                            <span class="budget-viewers-dot"></span>
-                            <span>5</span>
-                        </div>
-                    </div>
-                    <div class="budget-title">Savings</div>
-                </div>
-            </article>
-
-            <div class="budget-divider"></div>
-
-            <article class="budget-row">
-                <div class="budget-avatar">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=200" alt="">
-                </div>
-                <div class="budget-content">
-                    <div class="budget-meta">
-                        <span class="budget-pill">LIVE</span>
-                        <div class="budget-ticks">
-                            <span class="budget-tick"></span>
-                            <span class="budget-tick"></span>
-                        </div>
-                        <div class="budget-viewers">
-                            <span class="budget-viewers-dot"></span>
-                            <span>2</span>
-                        </div>
-                    </div>
-                    <div class="budget-title">Subscriptions</div>
-                </div>
-                <div class="budget-badge">2</div>
-            </article>
         </section>
 
         <nav class="tabs" aria-label="Primary navigation">
-            <a class="tab active" href="prototype.html" aria-current="page">Wishlist</a>
-            <a class="tab" href="discover.html">Discover</a>
+            <button class="tab active" data-tab="wishlist">Wishlist</button>
+            <button class="tab" data-tab="discover">Discover</button>
         </nav>
 
         <section class="card-stack" aria-label="Wishlist items">
-            <article class="card" aria-label="Wishlist card, The Oberoi">
+            <!-- Wishlist Cards -->
+            <article class="card" data-category="wishlist" aria-label="Wishlist card, The Oberoi">
                 <div class="card-header">
                     <strong>The Oberoi</strong>
                     <span>Planning</span>
                 </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
             </article>
-            <article class="card" aria-label="Wishlist card, Aman Tokyo">
+            <article class="card" data-category="wishlist" aria-label="Wishlist card, Aman Tokyo">
                 <div class="card-header">
                     <strong>Aman Tokyo</strong>
                     <span>Planning</span>
                 </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
             </article>
-            <article class="card" aria-label="Wishlist card, Sartiano's">
+            <article class="card" data-category="wishlist" aria-label="Wishlist card, Sartiano's">
                 <div class="card-header">
                     <strong>Sartiano's</strong>
                     <span>Booked</span>
                 </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
             </article>
-            <article class="card" aria-label="Wishlist card, Beach Vacation">
+            <article class="card" data-category="wishlist" aria-label="Wishlist card, Beach Vacation">
                 <div class="card-header">
                     <strong>Beach Vacation</strong>
                     <span>Reserved</span>
                 </div>
-                <div class="card-image">Destination preview</div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
+            </article>
+
+            <!-- Discover Cards -->
+            <article class="card" data-category="discover" aria-label="Discover card, Tokyo Experience">
+                <div class="card-header">
+                    <strong>Tokyo Experience</strong>
+                    <span>Trending</span>
+                </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
+            </article>
+            <article class="card" data-category="discover" aria-label="Discover card, Paris Hotel">
+                <div class="card-header">
+                    <strong>Paris Hotel</strong>
+                    <span>Recommended</span>
+                </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
+            </article>
+            <article class="card" data-category="discover" aria-label="Discover card, NYC Dining">
+                <div class="card-header">
+                    <strong>NYC Dining</strong>
+                    <span>Popular</span>
+                </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
+                <div class="card-actions">
+                    <a href="product.html">View Details</a>
+                    <span>→</span>
+                </div>
+            </article>
+            <article class="card" data-category="discover" aria-label="Discover card, Mountain Retreat">
+                <div class="card-header">
+                    <strong>Mountain Retreat</strong>
+                    <span>New</span>
+                </div>
+                <div class="card-image">
+                    <img src="Stock money photos/DTS_SOFT_LUXE_Daniel_Farò_Photos_ID10823.jpg" alt="Product preview">
+                </div>
                 <div class="card-actions">
                     <a href="product.html">View Details</a>
                     <span>→</span>
@@ -784,6 +881,35 @@
             </nav>
             <div class="home-indicator" aria-hidden="true"></div>
         </footer>
+        </div><!-- .phone-content -->
     </main>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabsContainer = document.querySelector('.tabs');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    // Get the tab category
+                    const category = this.getAttribute('data-tab');
+
+                    // Toggle show-discover class on tabs container
+                    if (category === 'discover') {
+                        tabsContainer.classList.add('show-discover');
+                    } else {
+                        tabsContainer.classList.remove('show-discover');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
