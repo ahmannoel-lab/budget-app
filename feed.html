@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pick Your Future • Budget App</title>
+  <style>
+    /* Design Tokens */
+    :root {
+      color-scheme: dark;
+      font-family: "SF Pro", "Inter", "Helvetica Neue", Arial, sans-serif;
+      --accent: #F1C36D;
+      --vw: 430px;
+      --vh: 932px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Feed Container */
+    .feed {
+      width: 100vw;
+      height: 100vh;
+      max-width: 430px;
+      max-height: 932px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: radial-gradient(140% 180% at 50% 0%, #292622 0%, #181614 70%);
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Header */
+    .feed-header {
+      height: 56px;
+      padding: calc(env(safe-area-inset-top, 59px) + 8px) 16px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+      transition: opacity 0.2s ease;
+    }
+
+    .scrolling .feed-header {
+      opacity: 0.7;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 15.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: -0.2px;
+    }
+
+    .header-action {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .header-action:active {
+      opacity: 0.6;
+    }
+
+    /* Card Stage */
+    .stage {
+      position: relative;
+      height: calc(100vh - 56px - 72px - env(safe-area-inset-top, 59px) - env(safe-area-inset-bottom, 34px));
+      display: grid;
+      align-items: flex-start;
+      justify-items: center;
+      padding-top: calc(env(safe-area-inset-top, 59px) + 20px);
+      overflow: hidden;
+    }
+
+    /* Pagination Dots */
+    .dots {
+      display: none; /* Hidden for top-weighted stack layout */
+      position: absolute;
+      top: calc(56px + env(safe-area-inset-top, 59px) + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 8px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: #ffffff44;
+      transition: all 0.3s ease;
+    }
+
+    .dots span.is-active {
+      background: var(--accent);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* Card */
+    .card {
+      position: absolute;
+      width: min(86vw, 320px);
+      aspect-ratio: 9 / 16;
+      border-radius: 22px;
+      overflow: hidden;
+      will-change: transform, opacity, filter;
+      transition: transform 0.22s ease,
+                  opacity 0.22s ease,
+                  filter 0.22s ease;
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.40);
+      pointer-events: none;
+      touch-action: none;
+    }
+
+    .card.is-active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      filter: none;
+      z-index: 3;
+      pointer-events: auto;
+    }
+
+    /* Soft glow under active card */
+    .card.is-active::before {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -32px;
+      height: 60px;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.12), transparent 60%);
+      filter: blur(18px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .card.is-prev {
+      transform: translate(-12px, -48px) scale(0.90) rotate(-1deg);
+      opacity: 0.4;
+      filter: blur(3px);
+      z-index: 2;
+    }
+
+    .card.is-next {
+      transform: translateY(52px) scale(0.92);
+      opacity: 0.55;
+      filter: blur(2px);
+      z-index: 2;
+    }
+
+    .card.is-hidden {
+      opacity: 0;
+      transform: scale(0.8);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Card Image with Parallax */
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: contrast(1.05) saturate(0.95) brightness(0.97);
+      display: block;
+      transform: translateY(var(--parallax, 0px));
+      transition: transform 0.18s ease;
+      will-change: transform;
+    }
+
+    /* Vignette */
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.22);
+      pointer-events: none;
+    }
+
+    /* Text Overlay */
+    .overlay {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      padding: 16px;
+      background: linear-gradient(to top,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0) 60%);
+      color: #fff;
+      z-index: 2;
+    }
+
+    .card .category-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: rgba(241, 198, 109, 0.18);
+      border: 1px solid rgba(241, 198, 109, 0.35);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .overlay .title {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 4px;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .overlay .meta {
+      font-size: 12.5px;
+      opacity: 0.85;
+      margin: 0;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Mini Pill Menu */
+    .mini-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0;
+      z-index: 3;
+    }
+
+    .mini-pill:active {
+      transform: scale(0.95);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Bottom Bar */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(72px + env(safe-area-inset-bottom, 34px));
+      padding-bottom: env(safe-area-inset-bottom, 34px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 10;
+      margin-top: 16px;
+    }
+
+    .nav-chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .nav-chip:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-chip:active {
+      transform: scale(0.97);
+    }
+
+    /* Subfilter-specific color grading */
+    .card[data-subfilter="core"] .card-img {
+      filter: contrast(1.05) saturate(0.95) brightness(1.02) sepia(0.08);
+    }
+
+    .card[data-subfilter="weekender"] .card-img {
+      filter: contrast(1.1) saturate(1.12) brightness(0.98) hue-rotate(-5deg);
+    }
+
+    .card[data-subfilter="premium"] .card-img {
+      filter: contrast(1.15) saturate(1.08) brightness(0.92);
+    }
+
+    .card[data-subfilter="next"] .card-img {
+      filter: contrast(1.08) saturate(0.98) brightness(1.0) hue-rotate(5deg);
+    }
+
+    .card[data-subfilter="safe"] .card-img {
+      filter: contrast(1.03) saturate(1.0) brightness(1.05) sepia(0.12);
+    }
+
+    /* Empty State */
+    .empty-state {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .empty-state h2 {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .empty-state a {
+      margin-top: 8px;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: #1A1A1A;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="feed" id="feed">
+    <!-- Header -->
+    <header class="feed-header">
+      <div class="avatar">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="User avatar" />
+      </div>
+      <h1 class="header-title">Pick your future.</h1>
+      <button class="header-action" aria-label="More options">⋯</button>
+    </header>
+
+    <!-- Card Stage -->
+    <main class="stage" id="stage" aria-live="polite">
+      <!-- Pagination Dots -->
+      <div class="dots" id="dots" aria-label="Progress indicator"></div>
+
+      <!-- Cards populated by JavaScript -->
+    </main>
+
+    <!-- Bottom Bar -->
+    <nav class="bottom-bar">
+      <a href="discover.html" class="nav-chip">← Discover</a>
+      <a href="prototype.html" class="nav-chip">Overview</a>
+    </nav>
+  </div>
+
+  <script>
+    // Product Data
+    const PRODUCTS = [
+      // Core products (Under $50) - Soft neutrals, daylight, minimal
+      { id: 1, subfilter: "core", title: "Daily Essentials Kit", subtitle: "$32", image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" },
+      { id: 2, subfilter: "core", title: "Everyday Tote", subtitle: "$45", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80" },
+      { id: 3, subfilter: "core", title: "Basic Tech Organizer", subtitle: "$28", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" },
+      { id: 4, subfilter: "core", title: "Coffee Subscription", subtitle: "$38/mo", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&q=80" },
+      { id: 5, subfilter: "core", title: "Workout Basics", subtitle: "$49", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" },
+
+      // Weekender products (Under $150) - Golden hour, lifestyle, motion
+      { id: 6, subfilter: "weekender", title: "Weekend Getaway Bag", subtitle: "$120", image: "https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=800&q=80" },
+      { id: 7, subfilter: "weekender", title: "Brunch Experience", subtitle: "$85", image: "https://images.unsplash.com/photo-1493770348161-369560ae357d?w=800&q=80" },
+      { id: 8, subfilter: "weekender", title: "Spa Day Pass", subtitle: "$140", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
+      { id: 9, subfilter: "weekender", title: "Concert Tickets", subtitle: "$95", image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80" },
+      { id: 10, subfilter: "weekender", title: "Wine Tasting Tour", subtitle: "$135", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" },
+
+      // Premium products ($150+) - Luxury textures, deep contrast, macro
+      { id: 11, subfilter: "premium", title: "Designer Watch", subtitle: "$450", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80" },
+      { id: 12, subfilter: "premium", title: "Fine Dining Experience", subtitle: "$280", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
+      { id: 13, subfilter: "premium", title: "Luxury Skincare Set", subtitle: "$320", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&q=80" },
+      { id: 14, subfilter: "premium", title: "Premium Tech Gadget", subtitle: "$599", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80" },
+      { id: 15, subfilter: "premium", title: "Artisan Furniture", subtitle: "$890", image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80" },
+
+      // Next products (Aspirational) - Futuristic, clean gradients, cool tones
+      { id: 16, subfilter: "next", title: "Travel Adventure", subtitle: "$2,400", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
+      { id: 17, subfilter: "next", title: "High-End Camera", subtitle: "$1,800", image: "https://images.unsplash.com/photo-1606986628825-1e0c1c7e4184?w=800&q=80" },
+      { id: 18, subfilter: "next", title: "Luxury Weekend Retreat", subtitle: "$3,200", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80" },
+      { id: 19, subfilter: "next", title: "Premium Home Office", subtitle: "$2,100", image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&q=80" },
+
+      // Safe products (Budget-friendly) - Cozy, warm neutrals, homey
+      { id: 20, subfilter: "safe", title: "Smart Shopping List", subtitle: "$22", image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
+      { id: 21, subfilter: "safe", title: "Home Basics Bundle", subtitle: "$35", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80" },
+      { id: 22, subfilter: "safe", title: "Meal Prep Kit", subtitle: "$40", image: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=800&q=80" },
+      { id: 23, subfilter: "safe", title: "Budget Fitness Gear", subtitle: "$29", image: "https://images.unsplash.com/photo-1598971861713-54ad16354c1c?w=800&q=80" }
+    ];
+
+    const SUBFILTER_NAMES = {
+      core: "Core",
+      weekender: "Weekender",
+      premium: "Premium",
+      next: "Next",
+      safe: "Safe"
+    };
+
+    // Get subfilter from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const subfilterParam = urlParams.get('subfilter');
+
+    // Filter products based on URL parameter
+    let filteredProducts = PRODUCTS;
+    if (subfilterParam) {
+      filteredProducts = PRODUCTS.filter(p => p.subfilter === subfilterParam);
+    }
+
+    // State
+    let activeIndex = 0;
+    let startY = 0;
+    let isDragging = false;
+    let isTransitioning = false;
+
+    // DOM references
+    const feed = document.getElementById('feed');
+    const stage = document.getElementById('stage');
+    const dotsContainer = document.getElementById('dots');
+
+    // Check if we have products
+    if (filteredProducts.length === 0) {
+      stage.innerHTML = `
+        <div class="empty-state">
+          <h2>No products found</h2>
+          <p>We couldn't find any products in this category.</p>
+          <a href="discover.html">Back to Discover</a>
+        </div>
+      `;
+    } else {
+      // Render cards
+      filteredProducts.forEach((product, index) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.setAttribute('data-subfilter', product.subfilter);
+        card.setAttribute('data-index', index);
+        card.setAttribute('tabindex', index === 0 ? '0' : '-1');
+        card.setAttribute('aria-hidden', index !== 0 ? 'true' : 'false');
+
+        card.innerHTML = `
+          <img class="card-img" src="${product.image}" alt="${product.title}" loading="${index < 3 ? 'eager' : 'lazy'}" />
+          <div class="overlay">
+            <span class="category-badge">${SUBFILTER_NAMES[product.subfilter]}</span>
+            <h2 class="title">${product.title}</h2>
+            <p class="meta">${product.subtitle}</p>
+          </div>
+          <button class="mini-pill" aria-label="More options">⋮</button>
+        `;
+
+        stage.appendChild(card);
+
+        // Add dot
+        const dot = document.createElement('span');
+        dot.setAttribute('data-index', index);
+        if (index === 0) dot.classList.add('is-active');
+        dotsContainer.appendChild(dot);
+      });
+
+      // Update card states
+      updateCardStates();
+
+      // Unified pointer/touch event handlers
+      const onDown = (e) => {
+        if (isTransitioning) return;
+        isDragging = true;
+        feed.classList.add('scrolling');
+        startY = (e.touches ? e.touches[0].clientY : e.clientY);
+      };
+
+      const onMove = (e) => {
+        if (!isDragging || isTransitioning) return;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY);
+        const deltaY = y - startY;
+
+        // Apply parallax to active card image
+        const activeImg = stage.querySelector('.card.is-active .card-img');
+        if (activeImg) {
+          activeImg.style.setProperty('--parallax', `${deltaY * 0.06}px`);
+        }
+      };
+
+      const onUp = (e) => {
+        if (!isDragging || isTransitioning) return;
+        isDragging = false;
+        feed.classList.remove('scrolling');
+
+        // Reset parallax
+        const activeImg = stage.querySelector('.card.is-active .card-img');
+        if (activeImg) {
+          activeImg.style.setProperty('--parallax', '0px');
+        }
+
+        const endY = (e.changedTouches ? e.changedTouches[0].clientY : e.clientY);
+        const deltaY = endY - startY;
+        const THRESH = 60;
+
+        if (deltaY > THRESH) {
+          // Swipe down → next
+          goToNext();
+        } else if (deltaY < -THRESH) {
+          // Swipe up → prev
+          goToPrevious();
+        }
+        // else snap back (no change)
+      };
+
+      // Pointer events (unified)
+      stage.addEventListener('pointerdown', onDown);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+
+      // Touch fallback
+      stage.addEventListener('touchstart', onDown, { passive: true });
+      stage.addEventListener('touchmove', onMove, { passive: true });
+      stage.addEventListener('touchend', onUp);
+
+      // Tap handlers for top/bottom half
+      stage.addEventListener('click', (e) => {
+        if (isTransitioning) return;
+
+        const card = e.target.closest('.card');
+        if (!card || !card.classList.contains('is-active')) return;
+
+        const rect = card.getBoundingClientRect();
+        const clickY = e.clientY - rect.top;
+        const halfHeight = rect.height / 2;
+
+        if (clickY < halfHeight) {
+          goToPrevious();
+        } else {
+          goToNext();
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (isTransitioning) return;
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          goToPrevious();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          goToNext();
+        }
+      });
+    }
+
+    function goToPrevious() {
+      activeIndex = (activeIndex - 1 + filteredProducts.length) % filteredProducts.length;
+      updateCardStates();
+    }
+
+    function goToNext() {
+      activeIndex = (activeIndex + 1) % filteredProducts.length;
+      updateCardStates();
+    }
+
+    function updateCardStates() {
+      isTransitioning = true;
+
+      const cards = document.querySelectorAll('.card');
+      const dots = document.querySelectorAll('.dots span');
+
+      // Calculate wraparound indices
+      const prevIndex = (activeIndex - 1 + filteredProducts.length) % filteredProducts.length;
+      const nextIndex = (activeIndex + 1) % filteredProducts.length;
+
+      cards.forEach((card, index) => {
+        // Remove all state classes
+        card.classList.remove('is-active', 'is-prev', 'is-next', 'is-hidden');
+
+        // Add appropriate class
+        if (index === activeIndex) {
+          card.classList.add('is-active');
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('aria-hidden', 'false');
+        } else if (index === prevIndex) {
+          card.classList.add('is-prev');
+          card.setAttribute('tabindex', '-1');
+          card.setAttribute('aria-hidden', 'true');
+        } else if (index === nextIndex) {
+          card.classList.add('is-next');
+          card.setAttribute('tabindex', '-1');
+          card.setAttribute('aria-hidden', 'true');
+        } else {
+          card.classList.add('is-hidden');
+          card.setAttribute('tabindex', '-1');
+          card.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('is-active');
+        } else {
+          dot.classList.remove('is-active');
+        }
+      });
+
+      // Announce to screen readers
+      const activeCard = cards[activeIndex];
+      if (activeCard) {
+        const title = activeCard.querySelector('.title').textContent;
+        stage.setAttribute('aria-label', `Now viewing: ${title}`);
+      }
+
+      // Reset transition lock after animation completes
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 280);
+    }
+  </script>
+</body>
+</html>
