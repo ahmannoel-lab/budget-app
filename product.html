@@ -635,37 +635,37 @@
     // Product Data - Synced with feed.html
     const PRODUCTS = [
       // Core products (Under $50)
-      { id: 1, subfilter: "core", title: "Daily Essentials Kit", subtitle: "$32", image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" },
-      { id: 2, subfilter: "core", title: "Everyday Tote", subtitle: "$45", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80" },
-      { id: 3, subfilter: "core", title: "Basic Tech Organizer", subtitle: "$28", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" },
-      { id: 4, subfilter: "core", title: "Coffee Subscription", subtitle: "$38/mo", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&q=80" },
-      { id: 5, subfilter: "core", title: "Workout Basics", subtitle: "$49", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" },
+      { id: 1, subfilter: "core", title: "Daily Essentials Kit", subtitle: "$32", price: 32, brand: "Everyday Co", category: "Lifestyle", description: "Everything you need for daily essentials in one convenient kit. Includes premium quality items curated for your everyday routine.", image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" },
+      { id: 2, subfilter: "core", title: "Everyday Tote", subtitle: "$45", price: 45, brand: "Canvas & Co", category: "Fashion", description: "A versatile tote bag perfect for work, errands, or weekend adventures. Durable canvas construction with leather handles.", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80" },
+      { id: 3, subfilter: "core", title: "Basic Tech Organizer", subtitle: "$28", price: 28, brand: "TechStore", category: "Tech", description: "Keep your cables, chargers, and accessories neatly organized. Compact design with multiple compartments.", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" },
+      { id: 4, subfilter: "core", title: "Coffee Subscription", subtitle: "$38/mo", price: 38, brand: "Bean & Brew", category: "Food & Drink", description: "Monthly delivery of premium coffee beans from around the world. Freshly roasted and delivered to your door.", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&q=80" },
+      { id: 5, subfilter: "core", title: "Workout Basics", subtitle: "$49", price: 49, brand: "FitLife", category: "Fitness", description: "Essential workout gear including resistance bands, yoga mat, and exercise guide. Perfect for home workouts.", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" },
 
       // Weekender products (Under $150)
-      { id: 6, subfilter: "weekender", title: "Weekend Getaway Bag", subtitle: "$120", image: "https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=800&q=80" },
-      { id: 7, subfilter: "weekender", title: "Brunch Experience", subtitle: "$85", image: "https://images.unsplash.com/photo-1493770348161-369560ae357d?w=800&q=80" },
-      { id: 8, subfilter: "weekender", title: "Spa Day Pass", subtitle: "$140", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
-      { id: 9, subfilter: "weekender", title: "Concert Tickets", subtitle: "$95", image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80" },
-      { id: 10, subfilter: "weekender", title: "Wine Tasting Tour", subtitle: "$135", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" },
+      { id: 6, subfilter: "weekender", title: "Weekend Getaway Bag", subtitle: "$120", price: 120, brand: "Traveler's Choice", category: "Travel", description: "Spacious weekend bag with multiple compartments. Water-resistant fabric and comfortable shoulder strap.", image: "https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=800&q=80" },
+      { id: 7, subfilter: "weekender", title: "Brunch Experience", subtitle: "$85", price: 85, brand: "Local Eats", category: "Experiences", description: "Voucher for a premium brunch experience at select restaurants. Includes appetizer, main course, and beverage.", image: "https://images.unsplash.com/photo-1493770348161-369560ae357d?w=800&q=80" },
+      { id: 8, subfilter: "weekender", title: "Spa Day Pass", subtitle: "$140", price: 140, brand: "Serenity Spa", category: "Wellness", description: "Full day spa access including massage, facial, and use of all facilities. Relax and rejuvenate in luxury.", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
+      { id: 9, subfilter: "weekender", title: "Concert Tickets", subtitle: "$95", price: 95, brand: "Live Nation", category: "Entertainment", description: "Premium seating for upcoming concerts and live shows. Experience your favorite artists live.", image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80" },
+      { id: 10, subfilter: "weekender", title: "Wine Tasting Tour", subtitle: "$135", price: 135, brand: "Vineyard Tours", category: "Experiences", description: "Guided tour of local vineyards with tastings of 6 premium wines. Includes transportation and cheese pairing.", image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" },
 
       // Premium products ($150+)
-      { id: 11, subfilter: "premium", title: "Designer Watch", subtitle: "$450", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80" },
-      { id: 12, subfilter: "premium", title: "Fine Dining Experience", subtitle: "$280", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
-      { id: 13, subfilter: "premium", title: "Luxury Skincare Set", subtitle: "$320", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&q=80" },
-      { id: 14, subfilter: "premium", title: "Premium Tech Gadget", subtitle: "$599", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80" },
-      { id: 15, subfilter: "premium", title: "Artisan Furniture", subtitle: "$890", image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80" },
+      { id: 11, subfilter: "premium", title: "Designer Watch", subtitle: "$450", price: 450, brand: "Timepiece Co", category: "Fashion", description: "Elegant timepiece with Swiss movement and sapphire crystal. Classic design that never goes out of style.", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80" },
+      { id: 12, subfilter: "premium", title: "Fine Dining Experience", subtitle: "$280", price: 280, brand: "Michelin Guide", category: "Dining", description: "Seven-course tasting menu at a Michelin-starred restaurant. Wine pairing and impeccable service included.", image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&q=80" },
+      { id: 13, subfilter: "premium", title: "Luxury Skincare Set", subtitle: "$320", price: 320, brand: "Radiance", category: "Beauty", description: "Complete skincare routine with premium ingredients. Includes cleanser, serum, moisturizer, and eye cream.", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&q=80" },
+      { id: 14, subfilter: "premium", title: "Premium Tech Gadget", subtitle: "$599", price: 599, brand: "TechPro", category: "Electronics", description: "Latest generation smart device with advanced features. Seamless integration with your digital lifestyle.", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&q=80" },
+      { id: 15, subfilter: "premium", title: "Artisan Furniture", subtitle: "$890", price: 890, brand: "Crafted Home", category: "Home", description: "Handcrafted furniture piece made from sustainably sourced wood. Timeless design and expert craftsmanship.", image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80" },
 
       // Next products (Aspirational)
-      { id: 16, subfilter: "next", title: "Travel Adventure", subtitle: "$2,400", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
-      { id: 17, subfilter: "next", title: "High-End Camera", subtitle: "$1,800", image: "https://images.unsplash.com/photo-1606986628825-1e0c1c7e4184?w=800&q=80" },
-      { id: 18, subfilter: "next", title: "Luxury Weekend Retreat", subtitle: "$3,200", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80" },
-      { id: 19, subfilter: "next", title: "Premium Home Office", subtitle: "$2,100", image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&q=80" },
+      { id: 16, subfilter: "next", title: "Travel Adventure", subtitle: "$2,400", price: 2400, brand: "Wanderlust", category: "Travel", description: "Week-long adventure to an exotic destination. Includes flights, accommodation, and guided excursions.", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
+      { id: 17, subfilter: "next", title: "High-End Camera", subtitle: "$1,800", price: 1800, brand: "PhotoPro", category: "Photography", description: "Professional mirrorless camera with premium lens kit. Capture stunning images with exceptional quality.", image: "https://images.unsplash.com/photo-1606986628825-1e0c1c7e4184?w=800&q=80" },
+      { id: 18, subfilter: "next", title: "Luxury Weekend Retreat", subtitle: "$3,200", price: 3200, brand: "The Oberoi", category: "Travel", description: "Exclusive weekend at a five-star resort. Private villa, spa treatments, and gourmet dining included.", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80" },
+      { id: 19, subfilter: "next", title: "Premium Home Office", subtitle: "$2,100", price: 2100, brand: "WorkSpace", category: "Home", description: "Complete home office setup with ergonomic desk, chair, and accessories. Create your perfect workspace.", image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&q=80" },
 
       // Safe products (Budget-friendly)
-      { id: 20, subfilter: "safe", title: "Smart Shopping List", subtitle: "$22", image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
-      { id: 21, subfilter: "safe", title: "Home Basics Bundle", subtitle: "$35", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80" },
-      { id: 22, subfilter: "safe", title: "Meal Prep Kit", subtitle: "$40", image: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=800&q=80" },
-      { id: 23, subfilter: "safe", title: "Budget Fitness Gear", subtitle: "$29", image: "https://images.unsplash.com/photo-1598971861713-54ad16354c1c?w=800&q=80" }
+      { id: 20, subfilter: "safe", title: "Smart Shopping List", subtitle: "$22", price: 22, brand: "BudgetWise", category: "Lifestyle", description: "Digital shopping list app subscription with meal planning and budget tracking features.", image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
+      { id: 21, subfilter: "safe", title: "Home Basics Bundle", subtitle: "$35", price: 35, brand: "Essentials Co", category: "Home", description: "Starter bundle of home essentials. Quality basics without breaking the bank.", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80" },
+      { id: 22, subfilter: "safe", title: "Meal Prep Kit", subtitle: "$40", price: 40, brand: "Healthy Eats", category: "Food & Drink", description: "Reusable containers and meal prep guide. Make healthy eating convenient and affordable.", image: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=800&q=80" },
+      { id: 23, subfilter: "safe", title: "Budget Fitness Gear", subtitle: "$29", price: 29, brand: "ActiveLife", category: "Fitness", description: "Basic fitness equipment to get you started. Resistance bands, jump rope, and workout guide.", image: "https://images.unsplash.com/photo-1598971861713-54ad16354c1c?w=800&q=80" }
     ];
 
     const SUBFILTER_NAMES = {
@@ -845,11 +845,12 @@
         document.getElementById('hero-image').src = product.image;
         document.getElementById('hero-image').alt = product.title;
         document.getElementById('product-title').textContent = product.title;
-        document.getElementById('product-category').textContent = SUBFILTER_NAMES[product.subfilter];
-        document.getElementById('product-price').textContent = product.subtitle;
+        document.getElementById('product-category').textContent = product.brand || SUBFILTER_NAMES[product.subfilter];
+        document.getElementById('product-price').textContent = `$${product.price}`;
+        document.getElementById('product-description').textContent = product.description || "A curated selection chosen for your lifestyle.";
 
         // Calculate and show affordability with new segmented bar
-        const price = extractPrice(product.subtitle);
+        const price = product.price;
 
         setTimeout(() => {
           updateAffordabilityBar(price);
