@@ -101,28 +101,10 @@
             overflow-x: hidden;
         }
 
-        /* Desktop only - show phone frame */
-        @media (min-width: 768px) {
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 32px 0;
-            }
-
-            .phone {
-                width: 430px;
-                min-height: 932px;
-                max-height: 932px;
-                border-radius: 32px;
-                box-shadow: 0 80px 120px rgba(0,0,0,.25);
-            }
-
-            .phone-content {
-                min-height: 932px;
-                max-height: 932px;
-                overflow-y: auto;
-            }
+        /* Force mobile layout on all screen sizes */
+        .phone {
+            max-width: 430px;
+            margin: 0 auto;
         }
 
         .status-bar {

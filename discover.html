@@ -86,22 +86,10 @@
       z-index: 1;
     }
 
-    /* Desktop only - show phone frame */
-    @media (min-width: 768px) {
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 32px 0;
-      }
-
-      .discover {
-        width: 430px;
-        min-height: 932px;
-        max-height: 932px;
-        border-radius: 32px;
-        box-shadow: 0 80px 120px rgba(0,0,0,.25);
-      }
+    /* Force mobile layout on all screen sizes */
+    .discover {
+      max-width: 430px;
+      margin: 0 auto;
     }
 
     /* Header */
@@ -639,35 +627,35 @@
           <a href="feed.html?subfilter=core" class="see-all">See all</a>
         </div>
         <div class="product-rail">
-          <div class="product-card">
+          <div class="product-card" data-product-id="3">
             <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Headphones</div>
               <div class="product-price">$29</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="2">
             <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Watch</div>
               <div class="product-price">$45</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="5">
             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Sneakers</div>
               <div class="product-price">$39</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="1">
             <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Water Bottle</div>
               <div class="product-price">$22</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="4">
             <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Notebook</div>
@@ -684,35 +672,35 @@
           <a href="feed.html?subfilter=weekender" class="see-all">See all</a>
         </div>
         <div class="product-rail">
-          <div class="product-card">
+          <div class="product-card" data-product-id="6">
             <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Backpack</div>
               <div class="product-price">$89</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="10">
             <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Camping Gear</div>
               <div class="product-price">$135</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="9">
             <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Sunglasses</div>
               <div class="product-price">$95</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="7">
             <img src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Coffee Mug</div>
               <div class="product-price">$32</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="8">
             <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Travel Kit</div>
@@ -729,35 +717,35 @@
           <a href="feed.html?subfilter=premium" class="see-all">See all</a>
         </div>
         <div class="product-rail">
-          <div class="product-card">
+          <div class="product-card" data-product-id="12">
             <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Leather Bag</div>
               <div class="product-price">$280</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="13">
             <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Jacket</div>
               <div class="product-price">$350</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="14">
             <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Dress Shoes</div>
               <div class="product-price">$220</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="11">
             <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Designer Watch</div>
               <div class="product-price">$450</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="15">
             <img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Marble Vase</div>
@@ -774,35 +762,35 @@
           <a href="feed.html?subfilter=next" class="see-all">See all</a>
         </div>
         <div class="product-rail">
-          <div class="product-card">
+          <div class="product-card" data-product-id="19">
             <img src="https://images.unsplash.com/photo-1589492477829-5e65395b66cc?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Smart Speaker</div>
               <div class="product-price">$199</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="17">
             <img src="https://images.unsplash.com/photo-1593642532400-2682810df593?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Laptop</div>
               <div class="product-price">$899</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="17">
             <img src="https://images.unsplash.com/photo-1511385348-e79d3fbc1eff?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">VR Headset</div>
               <div class="product-price">$499</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="19">
             <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Smart Home Hub</div>
               <div class="product-price">$329</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="16">
             <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Drone</div>
@@ -819,35 +807,35 @@
           <a href="feed.html?subfilter=safe" class="see-all">See all</a>
         </div>
         <div class="product-rail">
-          <div class="product-card">
+          <div class="product-card" data-product-id="21">
             <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Cozy Sweater</div>
               <div class="product-price">$65</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="20">
             <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Classic Tee</div>
               <div class="product-price">$25</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="23">
             <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Casual Shoes</div>
               <div class="product-price">$75</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="21">
             <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Everyday Bag</div>
               <div class="product-price">$55</div>
             </div>
           </div>
-          <div class="product-card">
+          <div class="product-card" data-product-id="22">
             <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600" alt="Product">
             <div class="product-info">
               <div class="product-title">Reading Book</div>
@@ -898,6 +886,26 @@
         overlay.className = 'overlay-gradient';
         card.insertBefore(overlay, card.firstChild.nextSibling);
       }
+    });
+
+    // Add click handlers to product cards for navigation
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const productId = this.dataset.productId;
+        if (productId) {
+          window.location.href = `product.html?id=${productId}`;
+        }
+      });
+
+      // Make cards keyboard accessible
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
     });
 
     // Infinite loop helper function
